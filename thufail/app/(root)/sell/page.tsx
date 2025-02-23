@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -20,79 +19,96 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Heart,
-  PawPrint,
-  Smile,
-  Sun,
-  Users,
-  Calendar,
-  Clock,
-  MapPin,
-} from "lucide-react";
-import Header from "@/components/ui/header";
+import { Calendar, Trophy, Users, Star, User, MapPin } from "lucide-react";
+import { formatDate } from "@/utils/format-date.ts";
 
-export default function PetDayCarePage() {
-  const [petType, setPetType] = useState<string | null>(null);
-
-  const handlePetTypeSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    setPetType(formData.get("petType") as string);
-  };
+export default function TournamentCoachBookingPage() {
+  const [priceRange, setPriceRange] = useState([0, 500]);
 
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-grow">
-        <section className="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-20">
+        <section className="bg-gradient-to-r from-green-500 to-blue-600 text-white py-20">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl font-bold mb-4">Pawsome Pet Day Care</h1>
+            <h1 className="text-4xl font-bold mb-4">
+              Tournament and Coach Booking
+            </h1>
             <p className="text-xl mb-8">
-              Where your furry friends play, learn, and receive loving care
+              Find and book tournaments or expert coaches for your sport
             </p>
-            <Button size="lg" variant="secondary">
-              Book a Visit
-            </Button>
+            <Card className="max-w-4xl mx-auto">
+              <CardContent className="p-6">
+                <form className="flex flex-wrap gap-4">
+                  <Input
+                    type="text"
+                    placeholder="Search tournaments or coaches"
+                    className="flex-grow"
+                  />
+                  <Select>
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Sport Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="soccer">Soccer</SelectItem>
+                      <SelectItem value="basketball">Basketball</SelectItem>
+                      <SelectItem value="tennis">Tennis</SelectItem>
+                      <SelectItem value="golf">Golf</SelectItem>
+                      <SelectItem value="volleyball">Volleyball</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Select>
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Booking Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="tournament">Tournament</SelectItem>
+                      <SelectItem value="coach">Coach</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Button type="submit" className="w-full sm:w-auto">
+                    Search
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
           </div>
         </section>
 
         <section className="py-16">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-8 text-center">
-              Why Choose Pawsome Pet Day Care?
+              Why Book with TurfMaster?
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <Card>
                 <CardContent className="p-6 text-center">
-                  <Heart className="h-12 w-12 mx-auto mb-4 text-primary" />
+                  <Trophy className="h-12 w-12 mx-auto mb-4 text-primary" />
                   <h3 className="text-xl font-semibold mb-2">
-                    Loving Environment
+                    Top-Tier Tournaments
                   </h3>
                   <p className="text-gray-600">
-                    Our caring staff creates a warm and nurturing atmosphere
-                    where your pets feel safe and loved.
+                    Access to a wide range of competitive tournaments across
+                    various sports and skill levels.
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-6 text-center">
-                  <PawPrint className="h-12 w-12 mx-auto mb-4 text-primary" />
-                  <h3 className="text-xl font-semibold mb-2">Tailored Care</h3>
+                  <Users className="h-12 w-12 mx-auto mb-4 text-primary" />
+                  <h3 className="text-xl font-semibold mb-2">Expert Coaches</h3>
                   <p className="text-gray-600">
-                    Personalized attention and activities suited to your pet's
-                    breed, age, and personality.
+                    Connect with experienced coaches to improve your skills and
+                    take your game to the next level.
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-6 text-center">
-                  <Smile className="h-12 w-12 mx-auto mb-4 text-primary" />
-                  <h3 className="text-xl font-semibold mb-2">
-                    Fun and Engaging
-                  </h3>
+                  <Calendar className="h-12 w-12 mx-auto mb-4 text-primary" />
+                  <h3 className="text-xl font-semibold mb-2">Easy Booking</h3>
                   <p className="text-gray-600">
-                    Exciting activities, playtime, and socialization to keep
-                    your pet happy and entertained throughout the day.
+                    Simple and secure booking process for both tournaments and
+                    coaching sessions.
                   </p>
                 </CardContent>
               </Card>
@@ -103,103 +119,143 @@ export default function PetDayCarePage() {
         <section className="bg-gray-100 py-16">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-8 text-center">
-              Find the Right Program for Your Pet
+              Featured Tournaments and Coaches
             </h2>
-            <Card className="max-w-2xl mx-auto">
-              <CardContent className="p-6">
-                <form onSubmit={handlePetTypeSubmit} className="space-y-4">
-                  <Select name="petType" required>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select Pet Type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="dog">Dog</SelectItem>
-                      <SelectItem value="cat">Cat</SelectItem>
-                      <SelectItem value="small-animal">Small Animal</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Button type="submit" className="w-full">
-                    Find Suitable Programs
-                  </Button>
-                </form>
-                {petType && (
-                  <div className="mt-6 text-center">
-                    <h3 className="text-2xl font-bold mb-2">
-                      Recommended Program
-                    </h3>
-                    <p className="text-3xl text-primary">
-                      {petType === "dog"
-                        ? "Canine Companions"
-                        : petType === "cat"
-                        ? "Feline Friends"
-                        : "Small Pet Paradise"}
-                    </p>
-                    <p className="text-sm text-gray-500 mt-2">
-                      Contact us to learn more about our programs and
-                      availability.
-                    </p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+            <Tabs defaultValue="tournaments" className="max-w-4xl mx-auto">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="tournaments">Tournaments</TabsTrigger>
+                <TabsTrigger value="coaches">Coaches</TabsTrigger>
+              </TabsList>
+              <TabsContent value="tournaments">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                  {[1, 2, 3, 4].map((i) => (
+                    <Card key={i} className="overflow-hidden">
+                      <img
+                        src={`/placeholder.svg?height=200&width=400&text=Tournament ${i}`}
+                        alt={`Tournament ${i}`}
+                        className="w-full h-48 object-cover"
+                      />
+                      <CardContent className="p-4">
+                        <h3 className="text-xl font-semibold mb-2">
+                          {i % 2 === 0
+                            ? "Summer Soccer Cup"
+                            : "Basketball Challenge"}
+                        </h3>
+                        <p className="text-gray-600 mb-2">
+                          Date: {formatDate(new Date())}
+                        </p>
+                        <div className="flex justify-between items-center mb-4">
+                          <span className="text-lg font-bold">
+                            Entry Fee: ${(50 + i * 25).toFixed(2)}
+                          </span>
+                          <div className="flex items-center">
+                            <MapPin className="h-4 w-4 text-gray-400 mr-1" />
+                            <span>City Stadium</span>
+                          </div>
+                        </div>
+                        <Button variant="outline" className="w-full">
+                          View Details
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
+              <TabsContent value="coaches">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                  {[1, 2, 3, 4].map((i) => (
+                    <Card key={i} className="overflow-hidden">
+                      <img
+                        src={`/placeholder.svg?height=200&width=400&text=Coach ${i}`}
+                        alt={`Coach ${i}`}
+                        className="w-full h-48 object-cover"
+                      />
+                      <CardContent className="p-4">
+                        <h3 className="text-xl font-semibold mb-2">
+                          {i % 2 === 0 ? "Coach Sarah" : "Coach Mike"}
+                        </h3>
+                        <p className="text-gray-600 mb-2">
+                          Specialization:{" "}
+                          {i % 2 === 0 ? "Soccer" : "Basketball"}
+                        </p>
+                        <div className="flex justify-between items-center mb-4">
+                          <span className="text-lg font-bold">
+                            Rate: ${(50 + i * 10).toFixed(2)}/hour
+                          </span>
+                          <div className="flex items-center">
+                            <Star className="h-4 w-4 text-yellow-400 mr-1" />
+                            <span>4.{8 + (i % 2)}/5</span>
+                          </div>
+                        </div>
+                        <Button variant="outline" className="w-full">
+                          Book Session
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
+            </Tabs>
+            <div className="text-center mt-8">
+              <Button size="lg">View All</Button>
+            </div>
           </div>
         </section>
 
         <section className="py-16">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-8 text-center">
-              Our Pet Day Care Programs
-            </h2>
-            <Tabs defaultValue="dogs" className="max-w-3xl mx-auto">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="dogs">Dogs</TabsTrigger>
-                <TabsTrigger value="cats">Cats</TabsTrigger>
-                <TabsTrigger value="small-animals">Small Animals</TabsTrigger>
+            <h2 className="text-3xl font-bold mb-8 text-center">How to Book</h2>
+            <Tabs defaultValue="tournament" className="max-w-3xl mx-auto">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="tournament">Tournament</TabsTrigger>
+                <TabsTrigger value="coach">Coach</TabsTrigger>
               </TabsList>
-              <TabsContent value="dogs">
+              <TabsContent value="tournament">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Canine Companions</CardTitle>
+                    <CardTitle>Booking a Tournament</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <ul className="list-disc pl-5 space-y-2">
+                    <ol className="list-decimal pl-5 space-y-2">
                       <li>
-                        Supervised play in spacious indoor and outdoor areas
+                        Search for tournaments in your preferred sport and
+                        location
                       </li>
-                      <li>Basic obedience reinforcement</li>
-                      <li>Socialization with other dogs</li>
-                      <li>Rest periods and individual attention</li>
-                    </ul>
+                      <li>Select the tournament you want to participate in</li>
+                      <li>Review tournament details, rules, and entry fees</li>
+                      <li>
+                        Fill out the registration form and submit your team
+                        information
+                      </li>
+                      <li>Pay the entry fee securely through our platform</li>
+                      <li>
+                        Receive confirmation and further instructions via email
+                      </li>
+                    </ol>
                   </CardContent>
                 </Card>
               </TabsContent>
-              <TabsContent value="cats">
+              <TabsContent value="coach">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Feline Friends</CardTitle>
+                    <CardTitle>Booking a Coach</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <ul className="list-disc pl-5 space-y-2">
-                      <li>Cozy cat condos for relaxation</li>
-                      <li>Interactive toys and climbing structures</li>
-                      <li>Gentle playtime and socialization</li>
-                      <li>Quiet spaces for naps and alone time</li>
-                    </ul>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-              <TabsContent value="small-animals">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Small Pet Paradise</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="list-disc pl-5 space-y-2">
-                      <li>Safe, species-specific enclosures</li>
-                      <li>Appropriate diet and feeding schedules</li>
-                      <li>Gentle handling and socialization</li>
-                      <li>Enrichment activities suited to each species</li>
-                    </ul>
+                    <ol className="list-decimal pl-5 space-y-2">
+                      <li>Browse through our list of qualified coaches</li>
+                      <li>Filter by sport, specialization, and availability</li>
+                      <li>Review coach profiles, experience, and ratings</li>
+                      <li>
+                        Select your preferred coach and choose available time
+                        slots
+                      </li>
+                      <li>
+                        Book your session and pay securely through our platform
+                      </li>
+                      <li>
+                        Receive confirmation and session details via email
+                      </li>
+                    </ol>
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -215,48 +271,49 @@ export default function PetDayCarePage() {
             <Accordion type="single" collapsible className="max-w-3xl mx-auto">
               <AccordionItem value="item-1">
                 <AccordionTrigger>
-                  What are your operating hours?
+                  How do I register for a tournament?
                 </AccordionTrigger>
                 <AccordionContent>
-                  Our pet day care center is open Monday through Friday from
-                  7:00 AM to 7:00 PM, and Saturday from 9:00 AM to 5:00 PM. We
-                  offer flexible drop-off and pick-up times to accommodate
-                  various schedules.
+                  To register for a tournament, search for the event you're
+                  interested in, click on "View Details," and follow the
+                  registration process. You'll need to provide team information
+                  and pay the entry fee. Once completed, you'll receive a
+                  confirmation email with further instructions.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2">
                 <AccordionTrigger>
-                  What is your staff-to-pet ratio?
+                  Can I cancel or reschedule a coaching session?
                 </AccordionTrigger>
                 <AccordionContent>
-                  We maintain low staff-to-pet ratios to ensure each animal
-                  receives proper attention and care. Our ratios vary by pet
-                  type: 1:10 for dogs, 1:15 for cats, and 1:20 for small
-                  animals, with additional staff for larger groups.
+                  Yes, you can cancel or reschedule a coaching session, but
+                  please note our policies. Cancellations made at least 24 hours
+                  before the scheduled session are eligible for a full refund.
+                  For rescheduling, contact the coach directly through our
+                  platform to find a mutually agreeable time.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3">
                 <AccordionTrigger>
-                  Do you provide meals for the pets?
+                  Are the tournaments age-specific?
                 </AccordionTrigger>
                 <AccordionContent>
-                  We encourage pet owners to bring their pet's regular food to
-                  maintain dietary consistency. However, we do offer
-                  high-quality meals for an additional fee if needed. We always
-                  provide fresh water and can accommodate any feeding schedule
-                  or dietary restrictions.
+                  Many tournaments are organized by age groups or skill levels.
+                  When browsing tournaments, you can filter by age category or
+                  check the tournament details for specific age requirements. If
+                  you have any questions about eligibility, you can contact the
+                  tournament organizer directly.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-4">
-                <AccordionTrigger>
-                  How do you handle pet emergencies?
-                </AccordionTrigger>
+                <AccordionTrigger>How are coaches vetted?</AccordionTrigger>
                 <AccordionContent>
-                  Our staff is trained in pet first aid and CPR. In case of an
-                  emergency, we have protocols in place to provide immediate
-                  care and contact both the pet owner and our partner veterinary
-                  clinic. We always prioritize the health and safety of the pets
-                  in our care.
+                  All coaches on our platform go through a thorough vetting
+                  process. This includes verification of their qualifications,
+                  experience, and certifications. We also conduct background
+                  checks and collect reviews from past clients. Our goal is to
+                  ensure that you have access to high-quality, trustworthy
+                  coaching professionals.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
@@ -266,26 +323,26 @@ export default function PetDayCarePage() {
         <section className="py-16">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-8 text-center">
-              What Pet Parents Say About Us
+              What Our Users Say
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
-                  name: "Sarah T.",
-                  text: "Pawsome Pet Day Care has been a lifesaver! My dog Max always comes home happy and tired after a day of play.",
+                  name: "Tom K.",
+                  text: "Booking a tournament through TurfMaster was incredibly easy. The process was smooth, and the tournament was well-organized.",
                 },
                 {
-                  name: "Michael R.",
-                  text: "I was hesitant about day care for my cat, but the staff at Pawsome have been amazing. Luna actually looks forward to her visits now!",
+                  name: "Lisa M.",
+                  text: "I found an amazing basketball coach through this platform. My skills have improved significantly in just a few sessions!",
                 },
                 {
-                  name: "Emily L.",
-                  text: "The small animal care at Pawsome is top-notch. My rabbits are always well-cared for, and the staff is knowledgeable about their needs.",
+                  name: "Ryan S.",
+                  text: "The variety of tournaments available is impressive. It's great to have so many options for competitive play in one place.",
                 },
               ].map((testimonial, index) => (
                 <Card key={index}>
                   <CardContent className="p-6">
-                    <Users className="h-8 w-8 text-primary mb-4" />
+                    <User className="h-8 w-8 text-primary mb-4" />
                     <p className="text-gray-600 mb-4">"{testimonial.text}"</p>
                     <p className="font-semibold">{testimonial.name}</p>
                   </CardContent>
@@ -299,31 +356,30 @@ export default function PetDayCarePage() {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
               <h2 className="text-3xl font-bold mb-8 text-center">
-                Book a Visit or Enroll Your Pet
+                Ready to Get Started?
               </h2>
               <Card>
                 <CardContent className="p-6">
                   <form className="space-y-4">
                     <Input type="text" placeholder="Your Name" required />
                     <Input type="email" placeholder="Your Email" required />
-                    <Input type="tel" placeholder="Your Phone" required />
-                    <Input type="text" placeholder="Pet's Name" required />
                     <Select>
                       <SelectTrigger>
-                        <SelectValue placeholder="Pet Type" />
+                        <SelectValue placeholder="I'm interested in..." />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="dog">Dog</SelectItem>
-                        <SelectItem value="cat">Cat</SelectItem>
-                        <SelectItem value="small-animal">
-                          Small Animal
+                        <SelectItem value="tournament">
+                          Joining a Tournament
                         </SelectItem>
+                        <SelectItem value="coaching">
+                          Booking a Coach
+                        </SelectItem>
+                        <SelectItem value="both">Both</SelectItem>
                       </SelectContent>
                     </Select>
-                    <Input type="text" placeholder="Pet's Breed" required />
-                    <Textarea placeholder="Any special requirements or questions?" />
+                    <Textarea placeholder="Any specific questions or requirements?" />
                     <Button type="submit" size="lg" className="w-full">
-                      Request Information
+                      Get More Information
                     </Button>
                   </form>
                 </CardContent>

@@ -20,118 +20,77 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Slider } from "@/components/ui/slider";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
-  Search,
-  DollarSign,
-  Truck,
-  ShieldCheck,
-  Star,
-  User,
-  Mail,
-  Phone,
-  PawPrint,
   Heart,
-  Package,
+  ClubIcon as Football,
+  Smile,
+  Sun,
+  Users,
+  Calendar,
+  Clock,
+  MapPin,
 } from "lucide-react";
 import Header from "@/components/ui/header";
-import Footer from "@/components/ui/footer";
 
-export default function PetProductSellPage() {
-  const [priceRange, setPriceRange] = useState([0, 100]);
+export default function RentSportsEquipmentPage() {
+  const [sportType, setSportType] = useState<string | null>(null);
+
+  const handleSportTypeSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    setSportType(formData.get("sportType") as string);
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-grow">
-        <section className="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-20">
+        <section className="bg-gradient-to-r from-green-500 to-blue-600 text-white py-20">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl font-bold mb-4">
-              Find the Perfect Products for Your Pet
-            </h1>
+            <h1 className="text-4xl font-bold mb-4">Rent Sports Equipment</h1>
             <p className="text-xl mb-8">
-              Discover high-quality pet supplies for your furry, feathered, or
-              scaly friends
+              Get the gear you need for your next game or practice session
             </p>
-            <Card className="max-w-4xl mx-auto">
-              <CardContent className="p-6">
-                <form className="flex flex-wrap gap-4">
-                  <Input
-                    type="text"
-                    placeholder="Search products"
-                    className="flex-grow"
-                  />
-                  <Select>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Pet Type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="dog">Dog</SelectItem>
-                      <SelectItem value="cat">Cat</SelectItem>
-                      <SelectItem value="bird">Bird</SelectItem>
-                      <SelectItem value="fish">Fish</SelectItem>
-                      <SelectItem value="small-animal">Small Animal</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Select>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="food">Food</SelectItem>
-                      <SelectItem value="toys">Toys</SelectItem>
-                      <SelectItem value="accessories">Accessories</SelectItem>
-                      <SelectItem value="health">Health & Wellness</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Button type="submit" className="w-full sm:w-auto">
-                    Search Products
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+            <Button size="lg" variant="secondary">
+              Browse Equipment
+            </Button>
           </div>
         </section>
 
         <section className="py-16">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-8 text-center">
-              Why Shop with PetPals?
+              Why Rent with Us?
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <Card>
                 <CardContent className="p-6 text-center">
-                  <DollarSign className="h-12 w-12 mx-auto mb-4 text-primary" />
-                  <h3 className="text-xl font-semibold mb-2">
-                    Best Price Guarantee
-                  </h3>
+                  <Football className="h-12 w-12 mx-auto mb-4 text-primary" />
+                  <h3 className="text-xl font-semibold mb-2">Wide Selection</h3>
                   <p className="text-gray-600">
-                    We offer competitive prices on a wide range of pet products
-                    to fit every budget.
+                    We offer a diverse range of high-quality sports equipment
+                    for all your needs.
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-6 text-center">
-                  <Truck className="h-12 w-12 mx-auto mb-4 text-primary" />
+                  <Clock className="h-12 w-12 mx-auto mb-4 text-primary" />
                   <h3 className="text-xl font-semibold mb-2">
-                    Fast & Free Shipping
+                    Flexible Rentals
                   </h3>
                   <p className="text-gray-600">
-                    Enjoy free shipping on orders over $50 and quick delivery to
-                    your doorstep.
+                    Rent for a day, a week, or longer - we have options to suit
+                    your schedule.
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-6 text-center">
-                  <ShieldCheck className="h-12 w-12 mx-auto mb-4 text-primary" />
-                  <h3 className="text-xl font-semibold mb-2">
-                    Quality Guaranteed
-                  </h3>
+                  <Smile className="h-12 w-12 mx-auto mb-4 text-primary" />
+                  <h3 className="text-xl font-semibold mb-2">Expert Advice</h3>
                   <p className="text-gray-600">
-                    All our products are carefully selected to ensure the best
-                    quality for your pets.
+                    Our knowledgeable staff can help you choose the right
+                    equipment for your sport.
                   </p>
                 </CardContent>
               </Card>
@@ -142,118 +101,124 @@ export default function PetProductSellPage() {
         <section className="bg-gray-100 py-16">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-8 text-center">
-              Featured Pet Products
+              Find the Right Equipment
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <Card key={i} className="overflow-hidden">
-                  <img
-                    src={`/placeholder.svg?height=200&width=400`}
-                    alt={`Product ${i}`}
-                    className="w-full h-48 object-cover"
-                  />
-                  <CardContent className="p-4">
-                    <h3 className="text-xl font-semibold mb-2">
-                      {i % 2 === 0 ? "Premium Pet Food" : "Interactive Pet Toy"}
+            <Card className="max-w-2xl mx-auto">
+              <CardContent className="p-6">
+                <form onSubmit={handleSportTypeSubmit} className="space-y-4">
+                  <Select name="sportType" required>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Sport Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="soccer">Soccer</SelectItem>
+                      <SelectItem value="basketball">Basketball</SelectItem>
+                      <SelectItem value="tennis">Tennis</SelectItem>
+                      <SelectItem value="golf">Golf</SelectItem>
+                      <SelectItem value="volleyball">Volleyball</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Button type="submit" className="w-full">
+                    Find Equipment
+                  </Button>
+                </form>
+                {sportType && (
+                  <div className="mt-6 text-center">
+                    <h3 className="text-2xl font-bold mb-2">
+                      Available Equipment
                     </h3>
-                    <p className="text-gray-600 mb-2">
-                      For{" "}
-                      {i % 3 === 0
-                        ? "Dogs"
-                        : i % 3 === 1
-                        ? "Cats"
-                        : "Small Pets"}
+                    <p className="text-3xl text-primary">
+                      {sportType === "soccer"
+                        ? "Soccer Balls, Cleats, Shin Guards"
+                        : sportType === "basketball"
+                        ? "Basketballs, Hoops, Shoes"
+                        : sportType === "tennis"
+                        ? "Tennis Rackets, Balls, Shoes"
+                        : sportType === "golf"
+                        ? "Golf Clubs, Balls, Tees"
+                        : "Volleyballs, Nets, Knee Pads"}
                     </p>
-                    <div className="flex justify-between items-center mb-4">
-                      <span className="text-lg font-bold">
-                        ${(19.99 + i * 5).toFixed(2)}
-                      </span>
-                      <div className="flex items-center">
-                        <Star className="h-4 w-4 text-yellow-400" />
-                        <span className="ml-1">{4 + (i % 2) * 0.5}/5</span>
-                      </div>
-                    </div>
-                    <Button variant="outline" className="w-full">
-                      Add to Cart
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-            <div className="text-center mt-8">
-              <Button size="lg">View All Products</Button>
-            </div>
+                    <p className="text-sm text-gray-500 mt-2">
+                      Contact us to check availability and reserve your
+                      equipment.
+                    </p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           </div>
         </section>
 
         <section className="py-16">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-8 text-center">
-              How to Order
+              Our Rental Process
             </h2>
-            <Tabs defaultValue="browse" className="max-w-3xl mx-auto">
+            <Tabs defaultValue="select" className="max-w-3xl mx-auto">
               <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="browse">Browse</TabsTrigger>
-                <TabsTrigger value="add">Add to Cart</TabsTrigger>
-                <TabsTrigger value="checkout">Checkout</TabsTrigger>
-                <TabsTrigger value="deliver">Delivery</TabsTrigger>
+                <TabsTrigger value="select">Select</TabsTrigger>
+                <TabsTrigger value="reserve">Reserve</TabsTrigger>
+                <TabsTrigger value="pickup">Pick Up</TabsTrigger>
+                <TabsTrigger value="return">Return</TabsTrigger>
               </TabsList>
-              <TabsContent value="browse">
+              <TabsContent value="select">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Browse Our Selection</CardTitle>
+                    <CardTitle>Select Your Equipment</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="list-disc pl-5 space-y-2">
-                      <li>Explore our wide range of pet products</li>
-                      <li>Use filters to narrow down your search</li>
-                      <li>Read product descriptions and reviews</li>
-                      <li>Compare prices and features</li>
+                      <li>Browse our wide range of sports equipment</li>
+                      <li>Choose the items you need for your activity</li>
+                      <li>Check availability for your desired dates</li>
+                      <li>Add items to your rental cart</li>
                     </ul>
                   </CardContent>
                 </Card>
               </TabsContent>
-              <TabsContent value="add">
+              <TabsContent value="reserve">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Add Items to Your Cart</CardTitle>
+                    <CardTitle>Reserve Your Equipment</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="list-disc pl-5 space-y-2">
-                      <li>Click "Add to Cart" for desired items</li>
-                      <li>Adjust quantities as needed</li>
-                      <li>Review your cart contents</li>
-                      <li>Continue shopping or proceed to checkout</li>
+                      <li>Provide your contact information</li>
+                      <li>Select rental duration</li>
+                      <li>Review your order and terms</li>
+                      <li>Confirm your reservation</li>
                     </ul>
                   </CardContent>
                 </Card>
               </TabsContent>
-              <TabsContent value="checkout">
+              <TabsContent value="pickup">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Complete Your Purchase</CardTitle>
+                    <CardTitle>Pick Up Your Equipment</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="list-disc pl-5 space-y-2">
-                      <li>Enter your shipping information</li>
-                      <li>Choose your preferred payment method</li>
-                      <li>Apply any discount codes</li>
-                      <li>Review and confirm your order</li>
+                      <li>Visit our location during business hours</li>
+                      <li>Present your ID and reservation confirmation</li>
+                      <li>Inspect the equipment with our staff</li>
+                      <li>Sign the rental agreement</li>
                     </ul>
                   </CardContent>
                 </Card>
               </TabsContent>
-              <TabsContent value="deliver">
+              <TabsContent value="return">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Delivery and Enjoyment</CardTitle>
+                    <CardTitle>Return Your Equipment</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="list-disc pl-5 space-y-2">
-                      <li>Receive order confirmation and tracking info</li>
-                      <li>Track your package in real-time</li>
-                      <li>Receive your pet products</li>
-                      <li>Enjoy your new items with your furry friend!</li>
+                      <li>
+                        Bring back the equipment on or before the due date
+                      </li>
+                      <li>Ensure items are clean and in good condition</li>
+                      <li>Complete a return inspection with our staff</li>
+                      <li>Receive your deposit back (if applicable)</li>
                     </ul>
                   </CardContent>
                 </Card>
@@ -269,50 +234,46 @@ export default function PetProductSellPage() {
             </h2>
             <Accordion type="single" collapsible className="max-w-3xl mx-auto">
               <AccordionItem value="item-1">
-                <AccordionTrigger>What is your return policy?</AccordionTrigger>
+                <AccordionTrigger>
+                  What types of equipment do you rent?
+                </AccordionTrigger>
                 <AccordionContent>
-                  We offer a 30-day return policy for most items. If you're not
-                  satisfied with your purchase, you can return it for a full
-                  refund or exchange. Please note that some items, such as
-                  opened pet food or used litter, may not be eligible for return
-                  due to hygiene reasons.
+                  We offer a wide range of sports equipment for rent, including
+                  but not limited to soccer balls, basketballs, tennis rackets,
+                  golf clubs, volleyballs, and various protective gear. Our
+                  inventory covers most popular sports and activities.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2">
                 <AccordionTrigger>
-                  How long does shipping take?
+                  How long can I rent equipment for?
                 </AccordionTrigger>
                 <AccordionContent>
-                  Shipping times vary depending on your location and the items
-                  ordered. Generally, orders are processed within 1-2 business
-                  days, and standard shipping takes 3-5 business days. Expedited
-                  shipping options are available at checkout for faster
-                  delivery.
+                  Our rental periods are flexible to suit your needs. We offer
+                  daily, weekly, and even monthly rental options. The minimum
+                  rental period is typically one day, but this may vary
+                  depending on the type of equipment.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3">
-                <AccordionTrigger>
-                  Do you offer international shipping?
-                </AccordionTrigger>
+                <AccordionTrigger>Do you require a deposit?</AccordionTrigger>
                 <AccordionContent>
-                  Yes, we offer international shipping to select countries.
-                  Shipping rates and delivery times vary by destination. Please
-                  note that some products may not be available for international
-                  shipping due to regulations or restrictions in certain
-                  countries.
+                  Yes, we require a refundable deposit for most equipment
+                  rentals. The deposit amount varies depending on the value of
+                  the equipment. The deposit is fully refundable upon the safe
+                  return of the equipment in its original condition.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-4">
                 <AccordionTrigger>
-                  Are your products safe for pets?
+                  What if the equipment gets damaged?
                 </AccordionTrigger>
                 <AccordionContent>
-                  Yes, all of our products are carefully selected with pet
-                  safety in mind. We work with reputable brands and
-                  manufacturers who adhere to strict quality and safety
-                  standards. However, it's always important to supervise your
-                  pet with new toys or products and consult with your
-                  veterinarian if you have any concerns about a specific item.
+                  We understand that accidents can happen. Minor wear and tear
+                  is expected and covered in the rental fee. However,
+                  significant damage or loss may result in additional charges.
+                  We recommend treating the equipment with care and reporting
+                  any issues immediately.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
@@ -327,21 +288,21 @@ export default function PetProductSellPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
-                  name: "Sarah M.",
-                  text: "PetPals has the best selection of cat toys! My kitties love everything I've bought from here.",
+                  name: "Alex T.",
+                  text: "Renting from TurfMaster was a breeze. The equipment was in great condition and perfect for our weekend tournament.",
                 },
                 {
-                  name: "Mike R.",
-                  text: "The quality of the dog food I purchased is excellent. My pup's coat has never looked better!",
+                  name: "Maria S.",
+                  text: "I love that I can try out different sports without having to invest in expensive equipment. The staff is always helpful in choosing the right gear.",
                 },
                 {
-                  name: "Emily L.",
-                  text: "Fast shipping and great customer service. I'll definitely be a repeat customer!",
+                  name: "Chris L.",
+                  text: "The rental process is quick and easy. It's great to have access to high-quality sports equipment whenever I need it.",
                 },
               ].map((testimonial, index) => (
                 <Card key={index}>
                   <CardContent className="p-6">
-                    <User className="h-8 w-8 text-primary mb-4" />
+                    <Users className="h-8 w-8 text-primary mb-4" />
                     <p className="text-gray-600 mb-4">"{testimonial.text}"</p>
                     <p className="font-semibold">{testimonial.name}</p>
                   </CardContent>
@@ -355,35 +316,34 @@ export default function PetProductSellPage() {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
               <h2 className="text-3xl font-bold mb-8 text-center">
-                Join Our Newsletter
+                Ready to Rent?
               </h2>
               <Card>
                 <CardContent className="p-6">
                   <form className="space-y-4">
                     <Input type="text" placeholder="Your Name" required />
                     <Input type="email" placeholder="Your Email" required />
+                    <Input type="tel" placeholder="Your Phone" required />
                     <Select>
                       <SelectTrigger>
-                        <SelectValue placeholder="Pet Type" />
+                        <SelectValue placeholder="Sport Type" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="dog">Dog</SelectItem>
-                        <SelectItem value="cat">Cat</SelectItem>
-                        <SelectItem value="bird">Bird</SelectItem>
-                        <SelectItem value="fish">Fish</SelectItem>
-                        <SelectItem value="small-animal">
-                          Small Animal
-                        </SelectItem>
+                        <SelectItem value="soccer">Soccer</SelectItem>
+                        <SelectItem value="basketball">Basketball</SelectItem>
+                        <SelectItem value="tennis">Tennis</SelectItem>
+                        <SelectItem value="golf">Golf</SelectItem>
+                        <SelectItem value="volleyball">Volleyball</SelectItem>
                       </SelectContent>
                     </Select>
-                    <Checkbox id="terms">
-                      <Checkbox.Indicator />
-                      <span className="ml-2">
-                        I agree to receive promotional emails
-                      </span>
-                    </Checkbox>
+                    <Input
+                      type="text"
+                      placeholder="Equipment Needed"
+                      required
+                    />
+                    <Textarea placeholder="Any special requirements or questions?" />
                     <Button type="submit" size="lg" className="w-full">
-                      Subscribe
+                      Request Rental Information
                     </Button>
                   </form>
                 </CardContent>

@@ -19,25 +19,70 @@ import {
   ThumbsUp,
   ArrowRight,
   SlidersHorizontal,
-  PawPrintIcon as Paw,
+  Calendar,
 } from "lucide-react";
 import Footer from "@/components/ui/footer";
 import Header from "@/components/ui/header";
-import { pets, Pet } from "@/app/data/pets";
 
-export default function BuyPage() {
-  const [priceRange, setPriceRange] = useState([0, 20]);
+// Mock data for available turfs
+const turfs = [
+  {
+    id: 1,
+    name: "Soccer Field A",
+    type: "Soccer",
+    size: "Standard",
+    price: 100,
+  },
+  {
+    id: 2,
+    name: "Tennis Court 1",
+    type: "Tennis",
+    size: "Standard",
+    price: 50,
+  },
+  {
+    id: 3,
+    name: "Basketball Court B",
+    type: "Basketball",
+    size: "Full",
+    price: 75,
+  },
+  {
+    id: 4,
+    name: "Golf Practice Green",
+    type: "Golf",
+    size: "Small",
+    price: 40,
+  },
+  {
+    id: 5,
+    name: "Multi-purpose Field",
+    type: "Multi-sport",
+    size: "Large",
+    price: 150,
+  },
+  {
+    id: 6,
+    name: "Cricket Pitch",
+    type: "Cricket",
+    size: "Standard",
+    price: 120,
+  },
+];
+
+export default function BookATurfPage() {
+  const [priceRange, setPriceRange] = useState([0, 200]);
   const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
-  const [filteredPets, setFilteredPets] = useState<Pet[]>(pets);
+  const [filteredTurfs, setFilteredTurfs] = useState(turfs);
   const [currentPage, setCurrentPage] = useState(1);
-  const petsPerPage = 9;
-  const indexOfLastPet = currentPage * petsPerPage;
-  const indexOfFirstPet = indexOfLastPet - petsPerPage;
-  const currentPets = filteredPets.slice(indexOfFirstPet, indexOfLastPet);
+  const turfsPerPage = 9;
+  const indexOfLastTurf = currentPage * turfsPerPage;
+  const indexOfFirstTurf = indexOfLastTurf - turfsPerPage;
+  const currentTurfs = filteredTurfs.slice(indexOfFirstTurf, indexOfLastTurf);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  const totalPages = Math.ceil(filteredPets.length / petsPerPage);
+  const totalPages = Math.ceil(filteredTurfs.length / turfsPerPage);
 
   const toggleSidePanel = () => {
     setIsSidePanelOpen(!isSidePanelOpen);
@@ -46,16 +91,16 @@ export default function BuyPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-grow">
-        <section className="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-20">
+        <section className="bg-gradient-to-r from-green-500 to-blue-600 text-white py-20">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl font-bold mb-4">Find Your Perfect Pet</h1>
+            <h1 className="text-4xl font-bold mb-4">Book Your Perfect Turf</h1>
             <p className="text-xl mb-8">
-              Browse adoptable pets and find your new best friend.
+              Find and reserve the ideal turf for your sport or event
             </p>
             <div className="max-w-3xl mx-auto flex items-center bg-white rounded-lg overflow-hidden shadow-lg">
               <Input
                 type="text"
-                placeholder="Enter pet type, breed, or keywords"
+                placeholder="Enter sport type, turf name, or keywords"
                 className="flex-grow border-none focus:ring-0"
               />
               <Button size="lg" className="rounded-none">
@@ -85,53 +130,51 @@ export default function BuyPage() {
                           <SelectValue placeholder="Select" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="age-asc">
-                            Age: Young to Old
+                          <SelectItem value="price-asc">
+                            Price: Low to High
                           </SelectItem>
-                          <SelectItem value="age-desc">
-                            Age: Old to Young
+                          <SelectItem value="price-desc">
+                            Price: High to Low
                           </SelectItem>
-                          <SelectItem value="date-desc">
-                            Newest Arrivals
-                          </SelectItem>
-                          <SelectItem value="date-asc">
-                            Oldest Listings
+                          <SelectItem value="name-asc">Name: A to Z</SelectItem>
+                          <SelectItem value="name-desc">
+                            Name: Z to A
                           </SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
                     <div>
-                      <label className="text-sm font-medium">Age Range</label>
+                      <label className="text-sm font-medium">Price Range</label>
                       <Slider
                         min={0}
-                        max={20}
-                        step={1}
+                        max={200}
+                        step={10}
                         value={priceRange}
                         onValueChange={setPriceRange}
                         className="mt-2"
                       />
                       <div className="flex justify-between mt-2">
-                        <span>{priceRange[0]} years</span>
-                        <span>{priceRange[1]} years</span>
+                        <span>${priceRange[0]}</span>
+                        <span>${priceRange[1]}</span>
                       </div>
                     </div>
                     <div>
-                      <label className="text-sm font-medium">Pet Type</label>
+                      <label className="text-sm font-medium">Sport Type</label>
                       <div className="space-y-2 mt-2">
-                        {Array.from(new Set(pets.map((pet) => pet.type))).map(
-                          (type) => (
-                            <div key={type} className="flex items-center">
-                              <Checkbox id={type} />
-                              <label htmlFor={type} className="ml-2 text-sm">
-                                {type}
-                              </label>
-                            </div>
-                          )
-                        )}
+                        {Array.from(
+                          new Set(turfs.map((turf) => turf.type))
+                        ).map((type) => (
+                          <div key={type} className="flex items-center">
+                            <Checkbox id={type} />
+                            <label htmlFor={type} className="ml-2 text-sm">
+                              {type}
+                            </label>
+                          </div>
+                        ))}
                       </div>
                     </div>
                     <div>
-                      <label className="text-sm font-medium">Size</label>
+                      <label className="text-sm font-medium">Turf Size</label>
                       <Select>
                         <SelectTrigger className="w-full mt-2">
                           <SelectValue placeholder="Any" />
@@ -139,30 +182,10 @@ export default function BuyPage() {
                         <SelectContent>
                           <SelectItem value="any">Any</SelectItem>
                           <SelectItem value="small">Small</SelectItem>
-                          <SelectItem value="medium">Medium</SelectItem>
+                          <SelectItem value="standard">Standard</SelectItem>
                           <SelectItem value="large">Large</SelectItem>
                         </SelectContent>
                       </Select>
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium">
-                        More Filters
-                      </label>
-                      <div className="space-y-2 mt-2">
-                        {[
-                          "Neutered/Spayed",
-                          "Vaccinated",
-                          "Good with Kids",
-                          "Good with Other Pets",
-                        ].map((feature) => (
-                          <div key={feature} className="flex items-center">
-                            <Checkbox id={feature} />
-                            <label htmlFor={feature} className="ml-2 text-sm">
-                              {feature}
-                            </label>
-                          </div>
-                        ))}
-                      </div>
                     </div>
                     <Button className="w-full">Apply Filters</Button>
                   </CardContent>
@@ -170,9 +193,7 @@ export default function BuyPage() {
               </aside>
               <div className="flex-grow space-y-6">
                 <div className="flex justify-between items-center">
-                  <h2 className="text-2xl font-bold">
-                    Featured Pets for Adoption
-                  </h2>
+                  <h2 className="text-2xl font-bold">Available Turfs</h2>
                   <Button
                     variant="outline"
                     className="md:hidden"
@@ -183,30 +204,25 @@ export default function BuyPage() {
                   </Button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {currentPets.map((pet) => (
-                    <Card key={pet.id} className="overflow-hidden">
+                  {currentTurfs.map((turf) => (
+                    <Card key={turf.id} className="overflow-hidden">
                       <img
-                        src={pet.image || "/placeholder.svg"}
-                        alt={`${pet.name} - ${pet.breed}`}
+                        src={`/placeholder.svg?height=200&width=400&text=${turf.name}`}
+                        alt={turf.name}
                         className="w-full h-48 object-cover"
                       />
                       <CardContent className="p-4">
                         <h3 className="text-xl font-semibold mb-2">
-                          {pet.name}
+                          {turf.name}
                         </h3>
                         <p className="text-gray-600 mb-2">
-                          {pet.breed} • {pet.age} years old
+                          {turf.type} • {turf.size}
                         </p>
-                        <div className="flex justify-between text-sm mb-4">
-                          <span>{pet.size}</span>
-                          <span>{pet.gender}</span>
-                          <span>{pet.personality}</span>
-                        </div>
                         <div className="flex justify-between items-center">
                           <span className="text-lg font-bold">
-                            Adoption Fee: ${pet.adoptionFee}
+                            ${turf.price}/hour
                           </span>
-                          <Button variant="outline">View Details</Button>
+                          <Button variant="outline">Book Now</Button>
                         </div>
                       </CardContent>
                     </Card>
@@ -239,14 +255,14 @@ export default function BuyPage() {
         <section className="bg-primary text-white py-16">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">
-              Ready to Find Your Perfect Pet?
+              Ready to Book Your Turf?
             </h2>
             <p className="text-xl mb-8">
-              Our adoption specialists are here to help you find your new best
-              friend.
+              Our booking specialists are here to help you find the perfect turf
+              for your needs.
             </p>
             <Button size="lg" variant="secondary">
-              Schedule a Visit <ArrowRight className="ml-2 h-4 w-4" />
+              Contact Us <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
         </section>
@@ -254,21 +270,21 @@ export default function BuyPage() {
         <section className="py-16">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-8 text-center">
-              What Our Adopters Say
+              What Our Customers Say
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
-                  name: "Sarah T.",
-                  text: "PetPals Adoption Center made finding my new furry friend so easy. Their care and support were amazing!",
+                  name: "John D.",
+                  text: "Booking a turf through TurfMaster was incredibly easy. The field was in perfect condition for our game!",
                 },
                 {
-                  name: "Michael R.",
-                  text: "I couldn't be happier with my new pet. The team at PetPals went above and beyond to match me with the perfect companion.",
+                  name: "Sarah M.",
+                  text: "I love the variety of turfs available. Whether it's for soccer or tennis, they have it all.",
                 },
                 {
-                  name: "Emily L.",
-                  text: "The adoption process was smooth and stress-free thanks to the professionals at PetPals. Highly recommended!",
+                  name: "Mike R.",
+                  text: "The customer service was excellent. They helped me find the perfect turf for my event.",
                 },
               ].map((testimonial, index) => (
                 <Card key={index}>

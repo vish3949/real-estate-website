@@ -15,24 +15,25 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { useState, useEffect } from "react";
+
 export default function AboutPage() {
   const router = useRouter();
   const handleContact = () => {
     router.push("/contact");
   };
 
-  const images = ["/ccc.jpg", "/bbb.jpg"];
+  const images = ["/turf1.jpg", "/turf2.jpg"];
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    if (images.length === 0) return; // Avoid errors
+    if (images.length === 0) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [images.length]);
+  }, []);
 
   const goToPrevious = () => {
     setCurrentIndex(
@@ -43,10 +44,11 @@ export default function AboutPage() {
   const goToNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
+
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-grow">
-        <section className="bg-gradient-to-r from-blue-500 to-purple-600 text-white flex items-center">
+        <section className="bg-gradient-to-r from-green-500 to-blue-600 text-white flex items-center">
           <div className="relative w-full overflow-hidden">
             <div
               className="flex transition-transform duration-500 ease-in-out"
@@ -55,8 +57,8 @@ export default function AboutPage() {
               {images.map((image, index) => (
                 <img
                   key={index}
-                  src={image}
-                  alt={`Carousel image ${index + 1}`}
+                  src={image || "/placeholder.svg"}
+                  alt={`Turf image ${index + 1}`}
                   className="w-full flex-shrink-0 object-cover"
                   style={{ height: "30rem" }}
                 />
@@ -108,12 +110,12 @@ export default function AboutPage() {
                 Our Mission
               </h2>
               <p className="text-lg text-gray-600 mb-8 dark:text-slate-400">
-                At NR Pets, our mission is to bring joy to pets and their
-                families by providing everything they need for a happy, healthy
-                life. We believe that every pet deserves love, care, and a
-                comfortable home, and we are dedicated to making this possible
-                through high-quality products, expert advice, and a personalized
-                shopping experience.
+                At TurfMaster, our mission is to provide top-quality turf
+                management solutions for sports facilities, golf courses, and
+                landscaping projects. We are dedicated to creating and
+                maintaining beautiful, durable, and sustainable turf surfaces
+                that enhance the playing experience and aesthetic appeal of any
+                outdoor space.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
@@ -122,8 +124,9 @@ export default function AboutPage() {
                   <Users className="h-12 w-12 mx-auto mb-4 text-primary" />
                   <h3 className="text-xl font-semibold mb-2">Expert Team</h3>
                   <p className="text-gray-600 dark:text-slate-400">
-                    Our team of experienced professionals is dedicated to
-                    providing you with the best service in the industry.
+                    Our team of experienced turf management professionals is
+                    dedicated to providing you with the best service in the
+                    industry.
                   </p>
                 </CardContent>
               </Card>
@@ -134,8 +137,9 @@ export default function AboutPage() {
                     Tailored Approach
                   </h3>
                   <p className="text-gray-600 dark:text-slate-400">
-                    We understand that every client is unique, and we tailor our
-                    services to meet your specific needs and preferences.
+                    We understand that every turf project is unique, and we
+                    tailor our services to meet your specific needs and
+                    preferences.
                   </p>
                 </CardContent>
               </Card>
@@ -145,7 +149,7 @@ export default function AboutPage() {
                   <h3 className="text-xl font-semibold mb-2">Proven Results</h3>
                   <p className="text-gray-600 dark:text-slate-400">
                     Our track record speaks for itself, with countless satisfied
-                    clients and successful transactions.
+                    clients and successful turf management projects.
                   </p>
                 </CardContent>
               </Card>
@@ -160,10 +164,10 @@ export default function AboutPage() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
-                { name: "Thufail Ahamed", role: "Founder & CEO" },
-                { name: "Mohamed Ashrif", role: "Senior Real Estate Agent" },
-                { name: "Vishwakanth", role: "Property Specialist" },
-                { name: "Nivethan", role: "Client Relations Manager" },
+                { name: "John Smith", role: "Head Groundskeeper" },
+                { name: "Emily Johnson", role: "Turf Specialist" },
+                { name: "Michael Brown", role: "Irrigation Expert" },
+                { name: "Sarah Davis", role: "Landscape Designer" },
               ].map((member, index) => (
                 <Card key={index}>
                   <CardContent className="p-6 text-center">
@@ -193,16 +197,16 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
                 {
-                  name: "Emily R.",
-                  text: "DreamHome Realty made finding our first home a breeze. Their expertise and patience were invaluable throughout the process.",
+                  name: "Golf Club Manager",
+                  text: "TurfMaster transformed our golf course. The quality of their work and attention to detail is unmatched.",
                 },
                 {
-                  name: "David M.",
-                  text: "I've worked with many realtors, but the team at DreamHome Realty truly stands out. Their market knowledge is unparalleled.",
+                  name: "Sports Facility Director",
+                  text: "We've worked with many turf management companies, but TurfMaster truly stands out. Their expertise is unparalleled.",
                 },
                 {
-                  name: "Lisa T.",
-                  text: "Selling our home was stress-free thanks to DreamHome Realty. They handled everything professionally and got us a great price.",
+                  name: "Homeowner",
+                  text: "TurfMaster's landscaping services gave us the perfect lawn we've always dreamed of. Highly recommended!",
                 },
               ].map((testimonial, index) => (
                 <Card key={index}>
@@ -220,11 +224,11 @@ export default function AboutPage() {
         <section className="bg-primary text-white py-16 flex flex-col items-center">
           <div className="container mx-auto px-4 text-center flex flex-col items-center">
             <h2 className="text-3xl font-bold mb-4 dark:text-black">
-              Ready to Find Your Dream Pet?
+              Ready to Transform Your Turf?
             </h2>
             <p className="text-xl mb-8 dark:text-slate-900">
-              Let us guide you through the process and find the perfect Pet for
-              you.
+              Let us help you create and maintain the perfect turf for your
+              needs.
             </p>
             <div className="flex items-center">
               <button

@@ -17,66 +17,42 @@ import {
   Home,
   Search,
   DollarSign,
-  Key,
+  Leaf,
   MapPin,
-  Bed,
-  Bath,
+  Calendar,
+  Droplet,
   Square,
   ArrowRight,
   Star,
 } from "lucide-react";
-import Header from "@/components/ui/header";
-import Footer from "@/components/ui/footer";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogContent,
-  AlertDialogTrigger,
-  AlertDialogHeader,
-  AlertDialogDescription,
-  AlertDialogCancel,
-  AlertDialogFooter,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-
-const featuredProperties = [
+const featuredServices = [
   {
     id: 1,
-    title: "Cat",
-    address: "123 Main St, Cityville, USA",
-    price: 12000,
-    beds: 2,
-    baths: 2,
-    sqft: 1000,
-    image: "/cat.jpg",
+    title: "Lawn Mowing",
+    description: "Professional lawn mowing service",
+    price: 50,
+    duration: "1 hour",
+    coverage: "Up to 5000 sq ft",
+    image: "/lawn-mowing.jpg",
   },
   {
     id: 2,
-    title: "Golden Retriver",
-    address: "456 Oak Rd, Townsville, USA",
-    price: 8000,
-    beds: 4,
-    baths: 3,
-    sqft: 2500,
-    image: "/th.jpg",
+    title: "Fertilization",
+    description: "Expert turf fertilization treatment",
+    price: 100,
+    duration: "2 hours",
+    coverage: "Up to 10000 sq ft",
+    image: "/fertilization.jpg",
   },
   {
     id: 3,
-    title: "Mini Rex",
-    address: "789 Pine Ave, Metropolis, USA",
-    price: 5000,
-    beds: 1,
-    baths: 1,
-    sqft: 500,
-    image: "/asd.jpg",
+    title: "Weed Control",
+    description: "Effective weed management solution",
+    price: 75,
+    duration: "1.5 hours",
+    coverage: "Up to 7500 sq ft",
+    image: "/weed-control.jpg",
   },
 ];
 
@@ -84,23 +60,23 @@ const testimonials = [
   {
     id: 1,
     name: "John Doe",
-    text: "Pawfect Pet Shop helped me find the perfect furry friend. Their service was amazing!",
+    text: "TurfPro transformed my lawn into a lush, green paradise. Their service was exceptional!",
   },
   {
     id: 2,
     name: "Jane Smith",
-    text: "I got all the essentials for my new puppy from Pawfect Pet Shop. The quality and variety were top-notch!",
+    text: "I've been using TurfPro for my golf course, and the results are outstanding. Highly recommended!",
   },
   {
     id: 3,
     name: "Mike Johnson",
-    text: "Adopting my kitten through Pawfect Pet Shop was a delightful experience. They made everything so simple and stress-free!",
+    text: "TurfPro's weed control service saved my lawn. It's never looked better!",
   },
 ];
 
 export default function HomePage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const images = ["/dogs.jpg"];
+  const images = ["/turf-management.jpg"];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -121,8 +97,8 @@ export default function HomePage() {
               }`}
             >
               <img
-                src={image}
-                alt={`Featured Property ${index + 1}`}
+                src={image || "/placeholder.svg"}
+                alt={`Turf Management ${index + 1}`}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -130,20 +106,20 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <div className="text-center text-white">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                Find Your Dream Friend
+                Professional Turf Management Solutions
               </h1>
               <p className="text-xl mb-8">
-                Discover the perfect companion with paws & claws
+                Discover expert care for your lawn and turf
               </p>
               <Card className="max-w-4xl mx-auto bg-white/90 backdrop-blur">
                 <CardContent className="p-6">
-                  <Tabs defaultValue="buy">
+                  <Tabs defaultValue="residential">
                     <TabsList className="grid w-full grid-cols-3 mb-4">
-                      <TabsTrigger value="buy">Buy</TabsTrigger>
-                      <TabsTrigger value="daycare">Day Care</TabsTrigger>
-                      <TabsTrigger value="sell">Pet Essentials</TabsTrigger>
+                      <TabsTrigger value="residential">Residential</TabsTrigger>
+                      <TabsTrigger value="commercial">Commercial</TabsTrigger>
+                      <TabsTrigger value="sports">Sports Turf</TabsTrigger>
                     </TabsList>
-                    <TabsContent value="buy">
+                    <TabsContent value="residential">
                       <form className="flex flex-wrap gap-4">
                         <Input
                           type="text"
@@ -152,12 +128,16 @@ export default function HomePage() {
                         />
                         <Select>
                           <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Pet Type" />
+                            <SelectValue placeholder="Service Type" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="house">Dog</SelectItem>
-                            <SelectItem value="apartment">Cat</SelectItem>
-                            <SelectItem value="condo">Rabbit</SelectItem>
+                            <SelectItem value="mowing">Lawn Mowing</SelectItem>
+                            <SelectItem value="fertilization">
+                              Fertilization
+                            </SelectItem>
+                            <SelectItem value="weed-control">
+                              Weed Control
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                         <Button type="submit">
@@ -165,7 +145,7 @@ export default function HomePage() {
                         </Button>
                       </form>
                     </TabsContent>
-                    <TabsContent value="daycare">
+                    <TabsContent value="commercial">
                       <form className="flex flex-wrap gap-4">
                         <Input
                           type="text"
@@ -174,13 +154,16 @@ export default function HomePage() {
                         />
                         <Select>
                           <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Hours" />
+                            <SelectValue placeholder="Property Type" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="studio">6</SelectItem>
-                            <SelectItem value="1">12</SelectItem>
-                            <SelectItem value="2">24</SelectItem>
-                            <SelectItem value="3">48</SelectItem>
+                            <SelectItem value="office">Office Park</SelectItem>
+                            <SelectItem value="retail">
+                              Retail Center
+                            </SelectItem>
+                            <SelectItem value="industrial">
+                              Industrial Complex
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                         <Button type="submit">
@@ -188,14 +171,28 @@ export default function HomePage() {
                         </Button>
                       </form>
                     </TabsContent>
-                    <TabsContent value="sell">
+                    <TabsContent value="sports">
                       <form className="flex flex-wrap gap-4">
                         <Input
                           type="text"
-                          placeholder="Enter your needed item"
+                          placeholder="Enter facility name"
                           className="flex-grow"
                         />
-                        <Button type="submit">Search</Button>
+                        <Select>
+                          <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Turf Type" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="golf">Golf Course</SelectItem>
+                            <SelectItem value="football">
+                              Football Field
+                            </SelectItem>
+                            <SelectItem value="soccer">Soccer Pitch</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <Button type="submit">
+                          <Search className="mr-2 h-4 w-4" /> Search
+                        </Button>
                       </form>
                     </TabsContent>
                   </Tabs>
@@ -208,36 +205,40 @@ export default function HomePage() {
         <section className="py-16">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-8 text-center">
-              Why Choose DreamHome Realty?
+              Why Choose TurfPro Management?
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <Card>
                 <CardContent className="p-6 text-center">
-                  <DollarSign className="h-12 w-12 mx-auto mb-4 text-primary" />
-                  <h3 className="text-xl font-semibold mb-2">Best Value</h3>
+                  <Leaf className="h-12 w-12 mx-auto mb-4 text-primary" />
+                  <h3 className="text-xl font-semibold mb-2">Expert Care</h3>
                   <p className="text-gray-600">
-                    We offer competitive prices on all our products, ensuring
-                    you get the best value for your money.
+                    Our team of turf specialists provides top-notch care for
+                    your lawn and sports fields.
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-6 text-center">
-                  <Key className="h-12 w-12 mx-auto mb-4 text-primary" />
-                  <h3 className="text-xl font-semibold mb-2">Quality</h3>
+                  <Calendar className="h-12 w-12 mx-auto mb-4 text-primary" />
+                  <h3 className="text-xl font-semibold mb-2">
+                    Customized Plans
+                  </h3>
                   <p className="text-gray-600">
-                    We only stock high-quality products from trusted brands,
-                    ensuring the best for your pet.
+                    We create tailored maintenance plans to suit your specific
+                    turf needs and schedule.
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-6 text-center">
-                  <MapPin className="h-12 w-12 mx-auto mb-4 text-primary" />
-                  <h3 className="text-xl font-semibold mb-2">Easy Process</h3>
+                  <Droplet className="h-12 w-12 mx-auto mb-4 text-primary" />
+                  <h3 className="text-xl font-semibold mb-2">
+                    Eco-Friendly Solutions
+                  </h3>
                   <p className="text-gray-600">
-                    Browse our extensive range of products from the comfort of
-                    your own home.
+                    Our sustainable practices ensure a beautiful lawn while
+                    protecting the environment.
                   </p>
                 </CardContent>
               </Card>
@@ -248,26 +249,26 @@ export default function HomePage() {
         <section className="bg-gray-100 py-16">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-8 text-center">
-              Glimpse of our pets
+              Our Featured Services
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredProperties.map((property) => (
-                <Card key={property.id} className="overflow-hidden">
+              {featuredServices.map((service) => (
+                <Card key={service.id} className="overflow-hidden">
                   <img
-                    src={property.image}
-                    alt={property.title}
+                    src={service.image || "/placeholder.svg"}
+                    alt={service.title}
                     className="w-full h-48 object-cover"
                   />
                   <CardContent className="p-4">
                     <h3 className="text-xl font-semibold mb-2">
-                      {property.title}
+                      {service.title}
                     </h3>
-
+                    <p className="text-gray-600 mb-4">{service.description}</p>
                     <div className="flex justify-between items-center">
                       <span className="text-lg font-bold">
-                        Rs.{property.price.toLocaleString()}
+                        ${service.price}
                       </span>
-                      <Button variant="outline">View Details</Button>
+                      <Button variant="outline">Book Now</Button>
                     </div>
                   </CardContent>
                 </Card>
@@ -275,7 +276,7 @@ export default function HomePage() {
             </div>
             <div className="text-center mt-8">
               <Button size="lg">
-                View All Pets <ArrowRight className="ml-2 h-4 w-4" />
+                View All Services <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
           </div>
@@ -303,13 +304,13 @@ export default function HomePage() {
         <section className="bg-primary text-white py-16">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">
-              Ready to Find Your Dream Companion?
+              Ready to Transform Your Turf?
             </h2>
             <p className="text-xl mb-8">
-              Let us help you navigate the real world of paws and claws.
+              Let our experts help you achieve the perfect lawn or sports field.
             </p>
             <Button size="lg" variant="secondary">
-              Get Started Today <ArrowRight className="ml-2 h-4 w-4" />
+              Get a Free Quote <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
         </section>
